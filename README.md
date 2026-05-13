@@ -1,4 +1,4 @@
-# 🌉 Poverty-CrossBridge AI Platform
+# 🌉 Poverty-CrossBridge Platform
 ### *Bridging Skills to Opportunities and Economic Growth*
 
 > **TVET Fair 2026** — Empowering Youth. Transforming Lives. Building Nations.
@@ -7,7 +7,7 @@
 
 ## 📋 Project Overview
 
-Poverty-CrossBridge AI is a smart youth empowerment platform that connects users with career guidance, skill assessments, learning roadmaps, job opportunities, and a real-time community chat — all powered by Supabase.
+Poverty-CrossBridge is a smart youth empowerment platform that connects users with career guidance, skill assessments, learning roadmaps, job opportunities, and a real-time community chat — all powered by Supabase.
 
 **Tech Stack:** HTML5 · CSS3 · Vanilla JavaScript · Supabase (Auth + Database + Storage + Realtime)
 
@@ -268,4 +268,4 @@ MIT License — Free to use, modify and distribute.
 
 ---
 
-*Made with ❤️ for TVET Fair 2026 · #SkillsToOpportunities · Empowering Youth Across Africa*
+*Made with ❤️ for skill empowering and innovation in 2026 · #SkillsToOpportunities · Empowering Youth Across Africa*
