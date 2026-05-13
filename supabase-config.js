@@ -1,6 +1,6 @@
 /**
  * ╔══════════════════════════════════════════╗
- * ║   POVERTY-CROSSBRIDGE AI PLATFORM        ║
+ * ║   POVERTY-CROSSBRIDGE PLATFORM        ║
  * ║   Supabase Config & Shared Utilities     ║
  * ╚══════════════════════════════════════════╝
  *
@@ -13,8 +13,8 @@
  */
 
 // ── CREDENTIALS ─────────────────────────────────────────────
-const SUPABASE_URL     = 'https://YOUR_PROJECT_REF.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';
+const SUPABASE_URL = 'https://toozapvqmjrvixpwkffy.supabase.co/rest/v1/';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0';
 // ────────────────────────────────────────────────────────────
 
 const { createClient } = window.supabase;
