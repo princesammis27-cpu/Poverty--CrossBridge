@@ -19,6 +19,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const { createClient } = window.supabase;
 const sb = createClient('https://toozapvqmjrvixpwkffy.supabase.co', eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0);
+const Auth = sb.auth;
 
 /* ── AUTH ─────────────────────────────────────────────────── */
 const Auth = {
