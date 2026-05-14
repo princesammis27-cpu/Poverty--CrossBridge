@@ -22,38 +22,43 @@ export const supabase = createClient('https://toozapvqmjrvixpwkffy.supabase.co',
 
 
 /* ── AUTH ─────────────────────────────────────────────────── */
-supabase Auth = {
+const Auth = {
   async signUp(email, password, fullName) {
     return await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: {
-          full_name: fullName
-        }
-      }
+      options: { data: { full_name: fullName } }
     });
-  }
-};
+  },
+
   async signIn(email, password) {
     return await supabase.auth.signInWithPassword({ email, password });
   },
+
   async signInWithGoogle() {
     return await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${location.origin}/dashboard.html` }
     });
   },
-  async signOut() { return await supabase.auth.signOut(); },
+
+  async signOut() {
+    return await supabase.auth.signOut();
+  },
+
   async getUser() {
     const { data: { user } } = await supabase.auth.getUser();
     return user;
   },
+
   async getSession() {
-    const { data: { session } } = await sb.auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     return session;
   },
-  onChange(cb) { return supabase.auth.onAuthStateChange(cb); }
+
+  onChange(cb) {
+    return supabase.auth.onAuthStateChange(cb);
+  }
 };
 
 /* ── DATABASE ─────────────────────────────────────────────── */
