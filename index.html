@@ -547,7 +547,7 @@
           </button>
         </form>
 
-        <p class="auth-footer-link">
+        <p class="supabase auth-footer-link">
           Already have an account? <a onclick="switchTab('login')">Sign in</a>
         </p>
       </div>
@@ -709,7 +709,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
   setLoading('btnLogin', 'spinLogin', 'btnLoginText', true);
   try {
-    const { data, error } = await Auth.signIn(email, pass);
+    const { data, error } = await supabase Auth.signIn(email, pass);
     if (error) throw error;
     // Check admin role and redirect accordingly
     const { data: profile } = await DB.getProfile(data.user.id);
@@ -744,7 +744,7 @@ document.getElementById('signupForm').addEventListener('submit', async function(
 
   setLoading('btnSignup', 'spinSignup', 'btnSignupText', true);
   try {
-    const { data, error } = await Auth.signUp(email, pass, name);
+    const { data, error } = await supabase Auth.signUp(email, pass, name);
     if (error) throw error;
     if (data?.user?.identities?.length === 0) throw new Error('An account with this email already exists.');
     showNotice('signupNotice', 'Account created! Check your email to verify, then sign in.');
@@ -760,7 +760,7 @@ document.getElementById('signupForm').addEventListener('submit', async function(
 
 /* ── ALREADY LOGGED IN? ────────────────────────────────── */
 (async () => {
-  const user = await Auth.getUser();
+  const user = await supabase Auth.getUser();
   if (user) {
     const { data: p } = await DB.getProfile(user.id);
     window.location.href = p?.role === 'admin' ? 'admin.html' : 'dashboard.html';
