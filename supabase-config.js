@@ -21,13 +21,19 @@ const { createClient } = window.supabase;
 const sb = createClient('https://toozapvqmjrvixpwkffy.supabase.co', eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0);
 
 /* ── AUTH ─────────────────────────────────────────────────── */
-const Auth = sb.auth; {
+const Auth = {
   async signUp(email, password, fullName) {
     return await sb.auth.signUp({
-      email, password,
-      options: { data: { full_name: fullName } }
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName
+        }
+      }
     });
-  },
+  }
+};
   async signIn(email, password) {
     return await sb.auth.signInWithPassword({ email, password });
   },
