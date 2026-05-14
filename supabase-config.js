@@ -22,9 +22,9 @@ const sb = createClient('https://toozapvqmjrvixpwkffy.supabase.co', eyJhbGciOiJI
 const Auth = sb.auth;
 
 /* ── AUTH ─────────────────────────────────────────────────── */
-const Auth = {
+supabase Auth = {
   async signUp(email, password, fullName) {
-    return await sb.auth.signUp({
+    return await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -36,10 +36,10 @@ const Auth = {
   }
 };
   async signIn(email, password) {
-    return await sb.auth.signInWithPassword({ email, password });
+    return await supabase.auth.signInWithPassword({ email, password });
   },
   async signInWithGoogle() {
-    return await sb.auth.signInWithOAuth({
+    return await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${location.origin}/dashboard.html` }
     });
@@ -53,25 +53,25 @@ const Auth = {
     const { data: { session } } = await sb.auth.getSession();
     return session;
   },
-  onChange(cb) { return sb.auth.onAuthStateChange(cb); }
+  onChange(cb) { return supabase.auth.onAuthStateChange(cb); }
 };
 
 /* ── DATABASE ─────────────────────────────────────────────── */
 const DB = {
   async getProfile(uid) {
-    return await sb.from('profiles').select('*').eq('id', uid).single();
+    return await supabase.from('profiles').select('*').eq('id', uid).single();
   },
   async upsertProfile(uid, payload) {
-    return await sb.from('profiles').upsert({ id: uid, ...payload }).select().single();
+    return await supabase.from('profiles').upsert({ id: uid, ...payload }).select().single();
   },
   async getAllProfiles() {
     return await sb.from('profiles').select('*').order('created_at', { ascending: false });
   },
   async deleteProfile(uid) {
-    return await sb.from('profiles').delete().eq('id', uid);
+    return await supabase.from('profiles').delete().eq('id', uid);
   },
   async getMessages(limit = 120) {
-    return await sb.from('messages')
+    return await supabase.from('messages')
       .select('*, profiles:user_id(full_name, avatar_url, email, role)')
       .order('created_at', { ascending: true })
       .limit(limit);
@@ -84,17 +84,17 @@ const DB = {
       .single();
   },
   async deleteMessage(id) {
-    return await sb.from('messages').delete().eq('id', id);
+    return await supabase.from('messages').delete().eq('id', id);
   },
   async getAllMessages() {
-    return await sb.from('messages')
+    return await supabase.from('messages')
       .select('*, profiles:user_id(full_name, avatar_url, email, role)')
       .order('created_at', { ascending: false });
   },
   async getStats() {
     const [u, m] = await Promise.all([
-      sb.from('profiles').select('id', { count: 'exact', head: true }),
-      sb.from('messages').select('id', { count: 'exact', head: true })
+      supabase.from('profiles').select('id', { count: 'exact', head: true }),
+      supabase.from('messages').select('id', { count: 'exact', head: true })
     ]);
     return { users: u.count || 0, messages: m.count || 0 };
   }
@@ -108,21 +108,21 @@ const Storage = {
     if (!ALLOWED.includes(ext)) throw new Error('Only JPG, PNG, GIF or WEBP images allowed.');
     if (file.size > 5 * 1024 * 1024) throw new Error('Image must be under 5 MB.');
     const path = `${userId}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-    const { error } = await sb.storage.from('chat-images').upload(path, file);
+    const { error } = await supabase.storage.from('chat-images').upload(path, file);
     if (error) throw error;
-    const { data: { publicUrl } } = sb.storage.from('chat-images').getPublicUrl(path);
+    const { data: { publicUrl } } = supabase.storage.from('chat-images').getPublicUrl(path);
     return { path, url: publicUrl };
   },
   async deleteImage(path) {
     if (!path) return;
-    return await sb.storage.from('chat-images').remove([path]);
+    return await supabase.storage.from('chat-images').remove([path]);
   }
 };
 
 /* ── REALTIME ─────────────────────────────────────────────── */
 const Realtime = {
   subscribeMessages(onInsert, onDelete) {
-    return sb.channel('chat-room')
+    return supabase.channel('chat-room')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, onInsert)
       .on('postgres_changes', { event: 'DELETE',  schema: 'public', table: 'messages' }, onDelete)
       .subscribe();
