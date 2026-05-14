@@ -18,8 +18,8 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // ────────────────────────────────────────────────────────────
 
 const { createClient } = window.supabase;
-const sb = createClient('https://toozapvqmjrvixpwkffy.supabase.co', eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0);
-const Auth = sb.auth;
+export const supabase = createClient('https://toozapvqmjrvixpwkffy.supabase.co', eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3phcHZxbWpydml4cHdrZmZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDMyODQsImV4cCI6MjA5NDI3OTI4NH0.gLyJ7aj5q4PN9DzGfL-Ku0fj6-Ed_TeNEGfY_x5YUf0);
+
 
 /* ── AUTH ─────────────────────────────────────────────────── */
 supabase Auth = {
@@ -44,9 +44,9 @@ supabase Auth = {
       options: { redirectTo: `${location.origin}/dashboard.html` }
     });
   },
-  async signOut() { return await sb.auth.signOut(); },
+  async signOut() { return await supabase.auth.signOut(); },
   async getUser() {
-    const { data: { user } } = await sb.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
     return user;
   },
   async getSession() {
@@ -65,7 +65,7 @@ const DB = {
     return await supabase.from('profiles').upsert({ id: uid, ...payload }).select().single();
   },
   async getAllProfiles() {
-    return await sb.from('profiles').select('*').order('created_at', { ascending: false });
+    return await supabase.from('profiles').select('*').order('created_at', { ascending: false });
   },
   async deleteProfile(uid) {
     return await supabase.from('profiles').delete().eq('id', uid);
